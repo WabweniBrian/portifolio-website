@@ -311,13 +311,13 @@
 `);
 
       // Set iframe attributes
-      iframe.src = "http://localhost:3000/chatbot";
+      iframe.src = "https://wabchatbot.vercel.app/chatbot";
       iframe.classList.add("chat-frame");
       document.body.appendChild(iframe);
 
       // Add event listener for messages
       window.addEventListener("message", (e) => {
-        if (e.origin !== "http://localhost:3000") return; // Removed unnecessary null return
+        if (e.origin !== "https://wabchatbot.vercel.app") return; // Removed unnecessary null return
         // Parse the dimensions from the message
         try {
           let dimensions = JSON.parse(e.data);
@@ -332,7 +332,7 @@
         // Send a message back to the iframe
         iframe.contentWindow.postMessage(
           "db888da6-4a0e-475e-a3d3-92d118d1cacc",
-          "http://localhost:3000/"
+          "https://wabchatbot.vercel.app/"
         );
       });
     </script>
