@@ -289,21 +289,52 @@
             Reserved &copy;2022</p>
     </footer>
     <!-------------------------//Footer------------------------------------ -->
+<script>
+      const iframe = document.createElement("iframe");
 
-    <iframe
-      src="https://wabchatbot.vercel.app/chatbot"
-      frameborder="0"
-      style="
+      // Function to add styles to the document
+      const iframeStyles = (styleString) => {
+        const style = document.createElement("style");
+        style.textContent = styleString;
+        document.head.appendChild(style); // Changed to appendChild
+      };
+
+      // Add styles to the iframe
+      iframeStyles(`
+    .chat-frame {
         position: fixed;
-        bottom: 1px;
-        right: 1px;
-        width: 100%;
-        height: 100%;
+        bottom: 20px;
+        right: 20px;
         border: none;
-        z-index: 999;
-      "
-    />
+    }
+`);
 
+      // Set iframe attributes
+      iframe.src = "http://localhost:3000/chatbot";
+      iframe.classList.add("chat-frame");
+      document.body.appendChild(iframe);
+
+      // Add event listener for messages
+      window.addEventListener("message", (e) => {
+        if (e.origin !== "http://localhost:3000") return; // Removed unnecessary null return
+        // Parse the dimensions from the message
+        try {
+          let dimensions = JSON.parse(e.data);
+          console.log(dimensions);
+          iframe.width = dimensions.width;
+          iframe.height = dimensions.height;
+        } catch (error) {
+          console.error("Invalid message data", error);
+          return;
+        }
+
+        // Send a message back to the iframe
+        iframe.contentWindow.postMessage(
+          "db888da6-4a0e-475e-a3d3-92d118d1cacc",
+          "http://localhost:3000/"
+        );
+      });
+    </script>
 
     <script src="assets/js/main.js"></script>
 </body>
